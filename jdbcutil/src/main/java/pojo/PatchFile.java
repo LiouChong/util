@@ -1,7 +1,9 @@
 package pojo;
 
 
+import javax.persistence.Table;
 
+@Table(name = "patch_file")
 public class PatchFile {
     private int id;
 
