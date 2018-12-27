@@ -1,30 +1,64 @@
 package pojo;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@Entity
 @Table(name = "user")
 public class User {
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "u_name")
     private String name;
 
-    @Column(name = "age")
-    private int age;
+    @Column(name = "u_age")
+    private Integer age;
 
-    @Column(name = "address")
+    @Column(name = "u_address")
     private String address;
 
-    @Column(name = "height")
-    private int height;
+    @Column(name = "u_height")
+    private Integer height;
 
     public User() {
     }
 
-    public User(String name, int age, String address, int height) {
+    public User(Integer id) {
+        this.id = id;
+    }
+
+    public User(String name, Integer age, String address, Integer height) {
         this.name = name;
+        this.age = age;
+        this.address = address;
+        this.height = height;
+    }
+
+    public User(Integer id, String name, Integer age, String address) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
+
+    public User(Integer id, String name, Integer age, String address, Integer height) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.height = height;
+    }
+
+    public User(String name, Integer age, String address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
+    public User(Integer age, String address, Integer height) {
         this.age = age;
         this.address = address;
         this.height = height;
@@ -47,11 +81,11 @@ public class User {
         return sb.toString();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,11 +97,11 @@ public class User {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -79,11 +113,11 @@ public class User {
         this.address = address;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 }

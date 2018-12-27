@@ -1,26 +1,41 @@
 package pojo;
 
 
+import javax.persistence.Column;
 import javax.persistence.Table;
 
 @Table(name = "patch_file")
 public class PatchFile {
-    private int id;
+    @Column(name = "id")
+    private Integer id;
 
+    @Column(name = "patch_no")
     private String patchNo;
 
-    private int osBit;
+    @Column(name = "os_bit")
+    private Integer osBit;
 
-    private int fileSize;
+    @Column(name = "file_size")
+    private Integer fileSize;
 
+    @Column(name = "md5")
     private String md5;
 
+    @Column(name = "file_url")
     private String fileUrl;
 
     public PatchFile() {
     }
 
-    public PatchFile(String patchNo, int osBit, int fileSize, String md5, String fileUrl) {
+    public PatchFile(Integer id, String patchNo, Integer osBit, Integer fileSize, String md5) {
+        this.id = id;
+        this.patchNo = patchNo;
+        this.osBit = osBit;
+        this.fileSize = fileSize;
+        this.md5 = md5;
+    }
+
+    public PatchFile(String patchNo, Integer osBit, Integer fileSize, String md5, String fileUrl) {
         this.patchNo = patchNo;
         this.osBit = osBit;
         this.fileSize = fileSize;
@@ -28,11 +43,11 @@ public class PatchFile {
         this.fileUrl = fileUrl;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,19 +59,19 @@ public class PatchFile {
         this.patchNo = patchNo;
     }
 
-    public int getOsBit() {
+    public Integer getOsBit() {
         return osBit;
     }
 
-    public void setOsBit(int osBit) {
+    public void setOsBit(Integer osBit) {
         this.osBit = osBit;
     }
 
-    public int getFileSize() {
+    public Integer getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(int fileSize) {
+    public void setFileSize(Integer fileSize) {
         this.fileSize = fileSize;
     }
 
