@@ -12,12 +12,12 @@ import java.sql.Statement;
 import java.util.*;
 
 @Repository
-public class JDBCUtil {
+public class JDBCTemplate {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private AnnoUtil annoUtil;
+    private AnnoTemplate annoTemplate;
 
     /**
      * 没有处理创建人，创建时间、状态。建议传入之前就设置好。否则为使用默认值。
@@ -28,9 +28,9 @@ public class JDBCUtil {
      * @throws InvocationTargetException
      */
     public int insert(Object object) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        String tableName = annoUtil.getTableAnno(object);
+        String tableName = annoTemplate.getTableAnno(object);
 
-        Map<String, Object> fieldAndValue = annoUtil.getFieldAndValueForAdd(object);
+        Map<String, Object> fieldAndValue = annoTemplate.getFieldAndValueForAdd(object);
 
         String sql = getInsertSql(fieldAndValue, tableName);
 
@@ -51,9 +51,9 @@ public class JDBCUtil {
 
     public void update(Object object) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 //        获取到表名，用于生成sql语句
-        String tableName = annoUtil.getTableAnno(object);
+        String tableName = annoTemplate.getTableAnno(object);
 //        map键值对分别为，列名和变量值。用于生成sql语句
-        Map<String, Object> fieldAndValue = annoUtil.getFieldAndValueForUpdate(object);
+        Map<String, Object> fieldAndValue = annoTemplate.getFieldAndValueForUpdate(object);
 //        生成sql语句
         String sql = getUpdateSql(fieldAndValue, tableName);
 
@@ -64,9 +64,9 @@ public class JDBCUtil {
     }
 
     public void delete(Object object) throws NoSuchFieldException, IllegalAccessException, InstantiationException, ClassNotFoundException, InvocationTargetException {
-        String tableName = annoUtil.getTableAnno(object);
+        String tableName = annoTemplate.getTableAnno(object);
 
-        Object id = annoUtil.getIdForDel(object);
+        Object id = annoTemplate.getIdForDel(object);
 
         String sql = "DELETE FROM " + tableName + " WHERE id =" + id;
         jdbcTemplate.execute(sql);

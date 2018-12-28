@@ -1,19 +1,18 @@
 package dao;
 
+import com.sun.xml.internal.ws.spi.db.FieldSetter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Component
-public class AnnoUtil {
+public class AnnoTemplate {
 
     /**
      * 方法中没有取id的值，即result中没有id这个键（mysql自动递增）
@@ -24,40 +23,32 @@ public class AnnoUtil {
      * @throws IllegalAccessException
      */
     public Map<String, Object> getFieldAndValueForAdd(Object object) throws InvocationTargetException, IllegalAccessException {
-        Class aClass = object.getClass();
-        Field[] fields = aClass.getDeclaredFields();
-
-        Map<String, Object> result = new LinkedHashMap<>();
-        return getFieldAndValue(object, fields, result, "add");
+        return getFieldAndValue(object, "add");
     }
 
 
-    /**
+    /**获取对象属性对应的列值和变量值
      * @param object
      * @return
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
     public Map<String, Object> getFieldAndValueForUpdate(Object object) throws InvocationTargetException, IllegalAccessException {
-        Class aClass = object.getClass();
-        Field[] fields = aClass.getDeclaredFields();
-        Map<String, Object> result = new LinkedHashMap<>();
-        return getFieldAndValue(object, fields, result, "update");
+        return getFieldAndValue(object,"update");
     }
 
     /**
      * 获取字段值，若变量上有注解Column则取出name值作为映射的字段名，若没有注解
      * 则以变量名作为映射的字段值
      *
-     * @param object
-     * @param fields
-     * @param result
-     * @param opration
      * @return
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public Map<String, Object> getFieldAndValue(Object object, Field[] fields, Map<String, Object> result, String opration) throws IllegalAccessException, InvocationTargetException {
+    public Map<String, Object> getFieldAndValue(Object object, String opration) throws IllegalAccessException, InvocationTargetException {
+        Class clazz = object.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        Map<String, Object> result = new LinkedHashMap<>();
         for (Field field : fields) {
 
             if (opration.equals("add") && field.getName().equals("id")) {
@@ -107,7 +98,7 @@ public class AnnoUtil {
     }
 
     /**
-     * 从@Table注解上获取类对应的表明。
+     * 从@Table注解上获取类对应的表名。
      *
      * @param
      * @return

@@ -27,6 +27,10 @@ public class PatchFile {
     public PatchFile() {
     }
 
+    public PatchFile(Integer id) {
+        this.id = id;
+    }
+
     public PatchFile(Integer id, String patchNo, Integer osBit, Integer fileSize, String md5) {
         this.id = id;
         this.patchNo = patchNo;
